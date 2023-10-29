@@ -14,12 +14,9 @@ use App\Entity\Reader;
 class Book
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $ref = null;
-
-
-
+    
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
@@ -35,7 +32,7 @@ class Book
     #[ORM\ManyToOne(inversedBy: 'books')]
     private ?Author $author = null;
 
-    #[ORM\ManyToMany(targetEntity: Reader::class, mappedBy: 'id_book')]
+    #[ORM\ManyToMany(targetEntity: Reader::class, mappedBy: 'books')]
     private Collection $readers;
 
     public function __construct()
@@ -142,5 +139,10 @@ class Book
         }
 
         return $this;
+    }
+// to string
+    public function __toString(): string
+    {
+        return $this->title;
     }
 }

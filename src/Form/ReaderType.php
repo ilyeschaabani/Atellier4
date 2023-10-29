@@ -14,7 +14,7 @@ class ReaderType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('id_book')
+            ->add('books')
         ;
     }
 

@@ -9,7 +9,8 @@
 {% for a in reader %}
 <td>{{a.id}}</td>
 <td>{{a.username}}</td>
-<td>{{a.id_book.getTitle()}}</td>
+<td>{{a.books}}</td>
+{# <td><a href = "{{path('app_author_show',{'id':a.id}) }}">Show</a> |  
 {# <td><a href = "{{path('app_author_edit',{'id':a.id}) }}">Edit</a> |
 <a href = "{{path('app_author_delete',{'id':a.id}) }}">DELETE</a></td> #}
 </tr>

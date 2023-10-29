@@ -19,17 +19,26 @@ class Reader
     #[ORM\Column(length: 255)]
     private ?string $username = null;
 
-    #[ORM\ManyToMany(targetEntity: book::class, inversedBy: 'readers')]
-    private Collection $id_book;
+    // MANY TO MANY RELATION WITH BOOK ENTITY BUT BOOK ID IS CALLED REF
+    #[ORM\ManyToMany(targetEntity: Book::class, inversedBy: 'readers')]
+    #[ORM\JoinTable(name: 'book_reader')]
+    #[ORM\InverseJoinColumn(name: 'book_id', referencedColumnName: 'ref')]
+    #[ORM\JoinColumn(name: 'reader_id', referencedColumnName: 'id')]
+    private Collection $books;
 
     public function __construct()
     {
-        $this->id_book = new ArrayCollection();
+        $this->books = new ArrayCollection();
     }
+    
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+    public function getbooks(): ?Collection
+    {
+        return $this->books;
     }
 
     public function getUsername(): ?string
@@ -49,13 +58,13 @@ class Reader
      */
     public function getIdBook(): Collection
     {
-        return $this->id_book;
+        return $this->books;
     }
 
     public function addIdBook(book $idBook): static
     {
-        if (!$this->id_book->contains($idBook)) {
-            $this->id_book->add($idBook);
+        if (!$this->books->contains($idBook)) {
+            $this->books->add($idBook);
         }
 
         return $this;
@@ -63,8 +72,9 @@ class Reader
 
     public function removeIdBook(book $idBook): static
     {
-        $this->id_book->removeElement($idBook);
+        $this->books->removeElement($idBook);
 
         return $this;
     }
+ 
 }

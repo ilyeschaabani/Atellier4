@@ -51,4 +51,25 @@ class ReaderController extends AbstractController
             'f' => $form->createView(),
         ]);
     }
+    // add reader on utilisation form 
+    #[Route('/reader/add2', name: 'app_reader_add2')]
+    public function add2 ( Request $request )
+    {
+        $reader = new Reader(); 
+        $form = $this->createForm(ReaderType::class, $reader); 
+        $form -> add('submit', SubmitType::class, ['label' => 'Ajouter']); 
+        $form->handleRequest($request); 
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+          
+            $Reader = $form->getData(); 
+            $entityManager = $this->getDoctrine()->getManager(); 
+            $entityManager->persist($Reader);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_reader_list');
+        }
+        return $this->render('reader/add.html.twig', [
+            'f' => $form->createView(),
+        ]);
+    }
 }
