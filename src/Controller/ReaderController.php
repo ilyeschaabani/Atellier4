@@ -51,5 +51,22 @@ class ReaderController extends AbstractController
             'f' => $form->createView(),
         ]);
     }
-    
+    #[Route('/reader/edit/{id}', name: 'app_reader_edit')]
+    function edit (ReaderRepository $readerRep , Request $request)
+    {
+        $reader = $readerRep->find($request->get('id'));
+        $form = $this->createForm(ReaderType::class, $reader);
+        $form -> add('submit', SubmitType::class, ['label' => 'Modifier']);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $reader = $form->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+            return $this->redirectToRoute('app_reader_list');
+        }
+        return $this->render('reader/edit.html.twig', [
+            'f' => $form->createView(),
+        ]);
+    }
 }

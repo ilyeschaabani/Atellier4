@@ -4,6 +4,7 @@
         <th>Id</th>
         <th>Username</th>
         <th>Books</th>
+        <th>Actions</th>
     </tr>
     {% for reader in reader %}
         <tr>
@@ -16,6 +17,9 @@
                     {% endfor %}
                 </ul>
             </td>
+        <td><a href="{{ path('app_reader_edit', {'id': reader.id}) }}">edit</a>
+        <a href="#">delete</a>
+    </td>
         </tr>
     {% endfor %}
 </table>
