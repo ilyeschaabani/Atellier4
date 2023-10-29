@@ -1,18 +1,22 @@
-<h1> Reader Liste</h1>
-<table border = 1>
-<tr>
-<th>Id</th>
-<th>username</th>
-<th>Book ID</th>
-</tr>
-<tr>
-{% for a in reader %}
-<td>{{a.id}}</td>
-<td>{{a.username}}</td>
-<td>{{a.books}}</td>
-{# <td><a href = "{{path('app_author_show',{'id':a.id}) }}">Show</a> |  
-{# <td><a href = "{{path('app_author_edit',{'id':a.id}) }}">Edit</a> |
-<a href = "{{path('app_author_delete',{'id':a.id}) }}">DELETE</a></td> #}
-</tr>
-{% endfor %}
-</table
+<h1>Reader List</h1>
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Username</th>
+        <th>Books</th>
+    </tr>
+    {% for reader in reader %}
+        <tr>
+            <td>{{ reader.id }}</td>
+            <td>{{ reader.username }}</td>
+            <td>
+                <ul>
+                    {% for book in reader.getbooks() %}
+                        <li>{{ book.title }}</li>
+                        {# Access other properties of the Book entity as needed #}
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
