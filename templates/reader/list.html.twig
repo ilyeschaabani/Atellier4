@@ -18,7 +18,8 @@
                 </ul>
             </td>
         <td><a href="{{ path('app_reader_edit', {'id': reader.id}) }}">edit</a>
-        <a href="#">delete</a>
+        <a href="{{ path('app_reader_delete', {'id': reader.id}) }}">delete</a>
+        <a href="{{ path('app_reader_show', {'id': reader.id}) }}">Show</a>
     </td>
         </tr>
     {% endfor %}

@@ -69,4 +69,26 @@ class ReaderController extends AbstractController
             'f' => $form->createView(),
         ]);
     }
+    #[Route('/reader/delete/{id}', name: 'app_reader_delete')]
+    function delete (ReaderRepository $readerRep , Request $request)
+    {
+        $reader = $readerRep->find($request->get('id'));
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($reader);
+        $entityManager->flush();
+        return $this->redirectToRoute('app_reader_list');
+    }
+    #[Route('/reader/show/{id}', name: 'app_reader_show')]
+    public function showbook($id, ReaderRepository $readerRep)
+    {
+        $reader = $readerRep->find($id);
+        if (!$reader) {
+            throw $this->createNotFoundException(
+                'No book found for ref '.$id
+            );
+        }
+        return $this->render('reader/showbook.html.twig', [
+            'reader' => $reader,
+        ]);
+    }
 }

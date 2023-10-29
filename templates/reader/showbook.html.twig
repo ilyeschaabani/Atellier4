@@ -1,0 +1,14 @@
+<!doctype html >
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reader Details </title>
+</head>
+<body>
+    <h1>Reader Details</h1>
+    <p>Reader username : {{reader.username}}</p>
+    <p>Books :  {% for book in reader.getbooks() %}
+                        <li>{{ book.title }}</li>
+                    {% endfor %}</p> 
+</body>
+</html>
